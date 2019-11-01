@@ -1,1 +1,105 @@
-haiiii
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Command Control</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+ 
+ 
+    $(document).ready(function() {     
+          function mengajax($id,$url,$pesanOk){
+            $id.html("wait....");
+            //$("#link1").text()
+            $.ajax({
+              type: "GET",
+              url:$url,
+              data: {
+              },
+              success: function(result) {
+                <!-- alert('ok'); -->
+                $id.html($pesanOk);
+              },
+              error: function(result) {
+                alert('error');
+                $id.html("Failed..");
+              }
+            });
+          }
+         
+        //tess saat di klik
+          $("#tez").click(function(e) {
+            e.preventDefault();
+            $id=$("#info");
+            $url="https://api.telegram.org/bot918222277:AAHYp9YZDwvcyogF2HS7KqLAJ56f1cNL4_w/sendMessage?chat_id=-1001159497113&text=[tes]";
+            $pesanOk="Tes berhasil Send";
+            mengajax($id,$url,$pesanOk);
+          });
+       
+        //Hidup lampu
+          $("#hidup").click(function(e) {
+            e.preventDefault();
+            $id=$("#info");
+            $url="https://api.telegram.org/bot918222277:AAHYp9YZDwvcyogF2HS7KqLAJ56f1cNL4_w/sendMessage?chat_id=-1001140143969&text=sound_on";
+            $pesanOk="Sound berhasil Hidup";
+            mengajax($id,$url,$pesanOk);
+          });
+        //Mati lampu
+          $("#mati").click(function(e) {
+            e.preventDefault();
+            $id=$("#info");
+            $url="https://api.telegram.org/bot918222277:AAHYp9YZDwvcyogF2HS7KqLAJ56f1cNL4_w/sendMessage?chat_id=-1001140143969&text=sound_off";
+            $pesanOk="Sound berhasil Mati";
+            mengajax($id,$url,$pesanOk);
+          });
+       
+        //Open lock
+          $("#lockopen").click(function(e) {
+            e.preventDefault();
+            $id=$("#info");
+            $url="https://api.telegram.org/bot918222277:AAHYp9YZDwvcyogF2HS7KqLAJ56f1cNL4_w/sendMessage?chat_id=-1001140143969&text=lock_open";
+            $pesanOk="Lock berhasil Open";
+            mengajax($id,$url,$pesanOk);
+          });
+                 
+        //Close lock
+          $("#lockclose").click(function(e) {
+            e.preventDefault();
+            $id=$("#info");
+            $url="https://api.telegram.org/bot918222277:AAHYp9YZDwvcyogF2HS7KqLAJ56f1cNL4_w/sendMessage?chat_id=-1001140143969&text=locking";
+            $pesanOk="Lock berhasil Terkunci";
+            mengajax($id,$url,$pesanOk);
+          });
+                 
+    });
+    </script>
+</head>
+<body>
+<!-- <button id="click_button"> -->
+    <!-- Welcome to JQuery world. -->
+<!-- </button> -->
+<!-- <br> -->
+<button id="tez">
+    [tes]
+</button>
+<br>
+<button id="hidup">
+   Tambah Volume Suara
+</button>
+<br>
+<button id="mati">
+   Matikan Volume Suara
+</button>
+<br>
+<button id="lockopen">
+   Buka Kunci
+</button>
+<br>
+<button id="lockclose">
+   Kunci Tutup
+</button>
+<br><br>
+<u id="info">..</u>
+</body>
+</html>
