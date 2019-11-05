@@ -1,5 +1,6 @@
 { 
-  "time":"3",
+  "now":"3",
+  "lock":1,
   "title":"ckrek",
-  "ext":"m4a"
+  "ext":"jpg"
 }
