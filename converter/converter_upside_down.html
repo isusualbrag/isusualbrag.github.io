@@ -1,4 +1,3 @@
-
 <html>
 <head>
 	<meta charset="utf-8">
@@ -30,11 +29,11 @@
 	registerStringTransformer( {
 		id: 'latin-characters-with-carons',
 		set: {
-			A: 'Ǎ', C: 'Č', D: 'Ď', E: 'Ě', F: 'F', G: 'Ǧ', H: 'Ȟ', I: 'Ǐ', K: 'Ǩ',
-			L: 'Ľ', N: 'Ň', O: 'Ǒ', P: 'P', Q: 'Ř', R: 'Ř', S: ['Š', 'Ṧ'], T: 'Ť',
-			U: ['Ǔ', 'Ǚ'], Z: 'Ž', a: 'ǎ', c: 'č', d: 'ď', e: 'ě', f: 'f', g: 'ǧ',
-			h: 'ȟ', i: 'ǐ', j: 'ǰ', k: 'ǩ', l: 'ľ', n: 'ň', o: 'ǒ', r: ['ř', 'ř'],
-			s: ['š', 'ṧ'], t: 'ť', u: ['ǔ', 'ǚ'], z: 'ž'
+			A: 'Ç', C: 'ÄŒ', D: 'ÄŽ', E: 'Äš', F: 'F', G: 'Ç¦', H: 'Èž', I: 'Ç', K: 'Ç¨',
+			L: 'Ä½', N: 'Å‡', O: 'Ç‘', P: 'P', Q: 'Å˜', R: 'Å˜', S: ['Å ', 'á¹¦'], T: 'Å¤',
+			U: ['Ç“', 'Ç™'], Z: 'Å½', a: 'ÇŽ', c: 'Ä', d: 'Ä', e: 'Ä›', f: 'f', g: 'Ç§',
+			h: 'ÈŸ', i: 'Ç', j: 'Ç°', k: 'Ç©', l: 'Ä¾', n: 'Åˆ', o: 'Ç’', r: ['Å™', 'Å™'],
+			s: ['Å¡', 'á¹§'], t: 'Å¥', u: ['Ç”', 'Çš'], z: 'Å¾'
 		},
 	} );
 
@@ -53,9 +52,9 @@
 	registerStringTransformer( {
 		id: 'happy-emoji',
 		set: {
-			a: '😀', b: '😄', c: '😎', d: '🙌', e: '💁', f: '💃', g: '🙆', h: '💫',
-			i: '🐬', j: '🍕', k: '🍪', l: '🍰', m: '🍭', n: '🚀', o: '🌞', p: '⭐️',
-			q: '🌠', r: '⚡️', s: '🎆', t: '✨', u: '🎈', v: '🎉', w: '🎊', x: '🎏', y: '🏂', z: '🏄'
+			a: 'ðŸ˜€', b: 'ðŸ˜„', c: 'ðŸ˜Ž', d: 'ðŸ™Œ', e: 'ðŸ’', f: 'ðŸ’ƒ', g: 'ðŸ™†', h: 'ðŸ’«',
+			i: 'ðŸ¬', j: 'ðŸ•', k: 'ðŸª', l: 'ðŸ°', m: 'ðŸ­', n: 'ðŸš€', o: 'ðŸŒž', p: 'â­ï¸',
+			q: 'ðŸŒ ', r: 'âš¡ï¸', s: 'ðŸŽ†', t: 'âœ¨', u: 'ðŸŽˆ', v: 'ðŸŽ‰', w: 'ðŸŽŠ', x: 'ðŸŽ', y: 'ðŸ‚', z: 'ðŸ„'
 		}
 	});
 
@@ -80,21 +79,24 @@
 	registerStringTransformer( {
 		id: 'latin-characters-upside-down-and-backwards',
 		set: {
-			A: '∀', B: '𐐒', C: 'Ɔ', D: 'ᗡ', E: 'Ǝ', F: 'Ⅎ', G: '⅁', H: 'H', I: 'I', J: 'ɾ', K: 'ʞ',
-			L: '˥', M: 'W', N: 'N', O: 'O', P: 'Ԁ', Q: 'Ὁ', R: 'ᴚ', S: 'S', T: '⊥', U: '∩',
-			V: 'Λ', W: 'M', X: 'X', Y: '⅄', Z: 'Z',
-			a: 'ɐ', b: 'q', c: 'ɔ', d: 'p', e: 'ǝ', f: 'ɟ', g: 'ƃ', h: 'ɥ', i: 'ᴉ', j: 'ɾ', k: 'ʞ',
-			l: 'ן', m: 'ɯ', n: 'u', o: 'o', p: 'd', q: 'b', r: 'ɹ', s: 's', t: 'ʇ', u: 'n',
-			v: 'ʌ', w: 'ʍ', x: 'x', y: 'ʎ', z: 'z',
-			',': "'", '.': "˙",
+			A: 'âˆ€', B: 'ð’', C: 'Æ†', D: 'á—¡', E: 'ÆŽ', F: 'â„²', G: 'â…', H: 'H', I: 'I', J: 'É¾', K: 'Êž',
+			L: 'Ë¥', M: 'W', N: 'N', O: 'O', P: 'Ô€', Q: 'á½‰', R: 'á´š', S: 'S', T: 'âŠ¥', U: 'âˆ©',
+			V: 'Î›', W: 'M', X: 'X', Y: 'â…„', Z: 'Z',
+			a: 'É', b: 'q', c: 'É”', d: 'p', e: 'Ç', f: 'ÉŸ', g: 'Æƒ', h: 'É¥', i: 'á´‰', j: 'É¾', k: 'Êž',
+			l: '×Ÿ', m: 'É¯', n: 'u', o: 'o', p: 'd', q: 'b', r: 'É¹', s: 's', t: 'Ê‡', u: 'n',
+			v: 'ÊŒ', w: 'Ê', x: 'x', y: 'ÊŽ', z: 'z',
+			',': "'", '.': "Ë™",
 		},
 		afterCharactersMapped: function(string) {
 			var reversed = '';
 			for (var i = string.length - 1; i >= 0; i--)
-				reversed = string[i]+reversed;
+				//reversed = string[i]+reversed;
+				reversed = reversed+string[i];
 			return reversed;
 		}
 	} );
+	
+	function isOdd(num) { return num % 2;}
 
 	$(function() {
 		/**
@@ -132,11 +134,16 @@
 
 		var translator = new function() {
 			this.characterMapper = characterBucket;
+			
 			this.translate = function() {
 				var string = $('.input').val();
 				var destinationString = '';
 				for ( var i = 0; i < string.length; i++ ) {
-					destinationString += this.characterMapper.mapCharacter(string[i]);
+					if(isOdd(i)==1){
+						destinationString += this.characterMapper.mapCharacter(string[i]);
+					}else{
+						destinationString += string[i];
+					}
 				}
 				if ( typeof this.characterMapper.stringTransformer.afterCharactersMapped == 'function' ) {
 					destinationString = this.characterMapper.stringTransformer.afterCharactersMapped( destinationString );
@@ -188,18 +195,10 @@
 			<input
 			       type="radio"
 			       name="translate-group"
-			       data-character-group-name="latin-characters-upside-down-and-backwards"
-			       class="translate-group"
-			       value="1">
-			Latin characters upside down and backwards
-		</label>
-		<label>
-			<input
-			       type="radio"
-			       name="translate-group"
 			       data-character-group-name="smiley-faces-on-top"
 			       class="translate-group"
-			       value="1">
+			       value="1"
+				   >
 			Smiley Faces
 		</label>
 		<label>
@@ -210,6 +209,15 @@
 			       class="translate-group"
 			       value="1">
 			Happy Emoji
+		</label>
+		<label>
+			<input
+			       type="radio"
+			       name="translate-group"
+			       data-character-group-name="latin-characters-upside-down-and-backwards"
+			       class="translate-group"
+			       value="1">
+			Latin characters upside down and backwards
 		</label>
 
 		<textarea class="output" readonly></textarea>
