@@ -1,0 +1,219 @@
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+	.container {
+		width: 80%;
+		margin: 0 auto;
+	}
+	textarea {
+		display: block;
+		width: 100%;
+		height: 200px;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 36px;
+		padding: 30px;
+	}
+	</style>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script>
+	var stringTransformers = {};
+	var registerStringTransformer = function( transformer ) {
+		stringTransformers[transformer.id] = transformer;
+	};
+	var getStringTransformer = function( id ) {
+		return stringTransformers[id];
+	};
+
+	registerStringTransformer( {
+		id: 'latin-characters-with-carons',
+		set: {
+			A: 'Ǎ', C: 'Č', D: 'Ď', E: 'Ě', F: 'F', G: 'Ǧ', H: 'Ȟ', I: 'Ǐ', K: 'Ǩ',
+			L: 'Ľ', N: 'Ň', O: 'Ǒ', P: 'P', Q: 'Ř', R: 'Ř', S: ['Š', 'Ṧ'], T: 'Ť',
+			U: ['Ǔ', 'Ǚ'], Z: 'Ž', a: 'ǎ', c: 'č', d: 'ď', e: 'ě', f: 'f', g: 'ǧ',
+			h: 'ȟ', i: 'ǐ', j: 'ǰ', k: 'ǩ', l: 'ľ', n: 'ň', o: 'ǒ', r: ['ř', 'ř'],
+			s: ['š', 'ṧ'], t: 'ť', u: ['ǔ', 'ǚ'], z: 'ž'
+		},
+	} );
+
+	registerStringTransformer( {
+		id: 'latin-characters-with-rings',
+		set: {
+			A: [ '\u00C5', '\u01FA', '\u00C5\u0302', '\u0100\u030A', '\u0104\u030A', '\u00C5\u0331', '\u1E00' ],
+			a: [ '\u00E5', '\u01FB', '\u00E5\u0302', '\u0101\u030A', '\u0105\u030A', '\u00E5\u0331', '\u1E01' ],
+			E: ['\u0045\u030A'], e: '\u0065\u030A', U: '\u016E', u: '\u016F',
+			R: [ '\u0052\u0325','\u0052\u0325\u0304' ], r: ['\u0072\u0325', '\u0072\u0325\u0304'],
+			W: '\u0057\u030A', w: '\u1E98', Y: '\u0059\u030A', y: '\u1E99',
+			Q: '\u0051\u030A', q: '\u0071\u030A', X: '\u0058\u030A', x: '\u0078\u030A'
+		}
+	} );
+
+	registerStringTransformer( {
+		id: 'happy-emoji',
+		set: {
+			a: '😀', b: '😄', c: '😎', d: '🙌', e: '💁', f: '💃', g: '🙆', h: '💫',
+			i: '🐬', j: '🍕', k: '🍪', l: '🍰', m: '🍭', n: '🚀', o: '🌞', p: '⭐️',
+			q: '🌠', r: '⚡️', s: '🎆', t: '✨', u: '🎈', v: '🎉', w: '🎊', x: '🎏', y: '🏂', z: '🏄'
+		}
+	});
+
+	registerStringTransformer( {
+		id: 'smiley-faces-on-top',
+		set: {},
+		afterCharactersMapped: function(string) {
+			var modified = '';
+			var s = "overpopulation";
+			for ( var i = 0; i < string.length; i++ ) {
+				var dontModify = string.charAt(i) === " " || i % 2 == 1;
+				if ( dontModify ) {
+					modified += string.charAt(i);
+				} else {
+					modified += string.charAt(i) + '\u0306\u0307\u0308';
+				}
+			}
+			return modified;
+		}
+	} );
+
+	registerStringTransformer( {
+		id: 'latin-characters-upside-down-and-backwards',
+		set: {
+			A: '∀', B: '𐐒', C: 'Ɔ', D: 'ᗡ', E: 'Ǝ', F: 'Ⅎ', G: '⅁', H: 'H', I: 'I', J: 'ɾ', K: 'ʞ',
+			L: '˥', M: 'W', N: 'N', O: 'O', P: 'Ԁ', Q: 'Ὁ', R: 'ᴚ', S: 'S', T: '⊥', U: '∩',
+			V: 'Λ', W: 'M', X: 'X', Y: '⅄', Z: 'Z',
+			a: 'ɐ', b: 'q', c: 'ɔ', d: 'p', e: 'ǝ', f: 'ɟ', g: 'ƃ', h: 'ɥ', i: 'ᴉ', j: 'ɾ', k: 'ʞ',
+			l: 'ן', m: 'ɯ', n: 'u', o: 'o', p: 'd', q: 'b', r: 'ɹ', s: 's', t: 'ʇ', u: 'n',
+			v: 'ʌ', w: 'ʍ', x: 'x', y: 'ʎ', z: 'z',
+			',': "'", '.': "˙",
+		},
+		afterCharactersMapped: function(string) {
+			var reversed = '';
+			for (var i = string.length - 1; i >= 0; i--)
+				reversed = string[i]+reversed;
+			return reversed;
+		}
+	} );
+
+	$(function() {
+		/**
+		 * The Bucket maps characters from your source character set to a target set.
+		 */
+		window.characterBucket = new function() {
+			/**
+			 * Replace a regular character with a character from the target character set.
+			 *
+			 * @param  {string} character
+			 * @return {string}
+			 */
+			this.mapCharacter = function(character) {
+				if ( this.stringTransformer.set[character] ) {
+					var characters = this.stringTransformer.set[character];
+					if ( typeof characters === 'string') {
+						return characters;
+					} else {
+						return characters[ Math.floor(Math.random() * characters.length) ];
+					}
+				} else {
+					return character;
+				}
+			};
+
+			/**
+			 * Update the bucket of characters based on the character set selected
+			 * by the user.
+			 */
+			this.updateBucket = function() {
+				var id = $('.translate-group:checked').data( 'character-group-name' );
+				this.stringTransformer = getStringTransformer( id );
+			};
+		};
+
+		var translator = new function() {
+			this.characterMapper = characterBucket;
+			this.translate = function() {
+				var string = $('.input').val();
+				var destinationString = '';
+				for ( var i = 0; i < string.length; i++ ) {
+					destinationString += this.characterMapper.mapCharacter(string[i]);
+				}
+				if ( typeof this.characterMapper.stringTransformer.afterCharactersMapped == 'function' ) {
+					destinationString = this.characterMapper.stringTransformer.afterCharactersMapped( destinationString );
+				}
+				$('.output').val(destinationString);
+			};
+
+		};
+
+		/*
+		 * When a group is selected,
+		 * update the character bucket and retranslate the string.
+		 */
+		$('.translate-group').on('change', function() {
+			characterBucket.updateBucket();
+			translator.translate();
+		} );
+
+		$('.input').on('keyup', function() { translator.translate() } );
+
+		$('.translate-group').last().trigger('click');
+	});
+	</script>
+</head>
+<body>
+	<h1>Cool Text Converter</h1>
+	<div class="container">
+		<textarea class="input">happy emoji</textarea>
+		<h3>Translate with: </h3>
+		<label>
+			<input
+			       type="radio"
+			       name="translate-group"
+			       data-character-group-name="latin-characters-with-carons"
+			       class="translate-group"
+			       value="1">
+			Latin characters with carons
+		</label>
+		<label>
+			<input
+			       type="radio"
+			       name="translate-group"
+			       data-character-group-name="latin-characters-with-rings"
+			       class="translate-group"
+			       value="1">
+			Latin characters with rings
+		</label>
+		<label>
+			<input
+			       type="radio"
+			       name="translate-group"
+			       data-character-group-name="latin-characters-upside-down-and-backwards"
+			       class="translate-group"
+			       value="1">
+			Latin characters upside down and backwards
+		</label>
+		<label>
+			<input
+			       type="radio"
+			       name="translate-group"
+			       data-character-group-name="smiley-faces-on-top"
+			       class="translate-group"
+			       value="1">
+			Smiley Faces
+		</label>
+		<label>
+			<input
+			       type="radio"
+			       name="translate-group"
+			       data-character-group-name="happy-emoji"
+			       class="translate-group"
+			       value="1">
+			Happy Emoji
+		</label>
+
+		<textarea class="output" readonly></textarea>
+	</div>
+	<a href="https://github.com/ericandrewlewis/cool-text-converter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+</body>
+</html>
