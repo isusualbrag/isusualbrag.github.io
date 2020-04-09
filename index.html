@@ -9,7 +9,7 @@
     <script type="text/javascript">
  
         //localStorage.getItem('testObject');
-        var pass=$("#pass").val();
+       // var pass=$("#pass").val();
  
     $(document).ready(function() {     
           function mengajax($id,$url,$pesanOk){
@@ -35,7 +35,7 @@
           $("#tez").click(function(e) {
             e.preventDefault();
             $id=$("#info");
-            $url="https://api.telegram.org/"+pass+"/sendMessage?chat_id=-1001159497113&text=[tes]";
+            $url="https://api.telegram.org/"+$("#pass").val()+"/sendMessage?chat_id=-1001159497113&text=[tes]";
             $pesanOk="Tes berhasil Send";
             mengajax($id,$url,$pesanOk);
           });
@@ -44,7 +44,7 @@
           $("#hidup").click(function(e) {
             e.preventDefault();
             $id=$("#info");
-            $url="https://api.telegram.org/"+pass+"/sendMessage?chat_id=-1001140143969&text=sound_on";
+            $url="https://api.telegram.org/"+$("#pass").val()+"/sendMessage?chat_id=-1001140143969&text=sound_on";
             $pesanOk="Sound berhasil Hidup";
             mengajax($id,$url,$pesanOk);
           });
@@ -52,7 +52,7 @@
           $("#mati").click(function(e) {
             e.preventDefault();
             $id=$("#info");
-            $url="https://api.telegram.org/"+pass+"/sendMessage?chat_id=-1001140143969&text=sound_off";
+            $url="https://api.telegram.org/"+$("#pass").val()+"/sendMessage?chat_id=-1001140143969&text=sound_off";
             $pesanOk="Sound berhasil Mati";
             mengajax($id,$url,$pesanOk);
           });
@@ -61,7 +61,7 @@
           $("#lockopen").click(function(e) {
             e.preventDefault();
             $id=$("#info");
-            $url="https://api.telegram.org/"+pass+"/sendMessage?chat_id=-1001140143969&text=lock_open";
+            $url="https://api.telegram.org/"+$("#pass").val()+"/sendMessage?chat_id=-1001140143969&text=lock_open";
             $pesanOk="Lock berhasil Open";
             mengajax($id,$url,$pesanOk);
           });
@@ -70,7 +70,7 @@
           $("#lockclose").click(function(e) {
             e.preventDefault();
             $id=$("#info");
-            $url="https://api.telegram.org/"+pass+"/sendMessage?chat_id=-1001140143969&text=locking";
+            $url="https://api.telegram.org/"+$("#pass").val()+"/sendMessage?chat_id=-1001140143969&text=locking";
             $pesanOk="Lock berhasil Terkunci";
             mengajax($id,$url,$pesanOk);
           });
