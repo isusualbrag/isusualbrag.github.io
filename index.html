@@ -29,9 +29,11 @@
     <script type="text/javascript">
         
         //localStorage.getItem('simpanpass');
-        $("#pass").val(localStorage.getItem('simpanpass'));
-        console.log("upd-sama2");
- 
+        setTimeout(function() {
+           $("#pass").val(localStorage.getItem('simpanpass'));
+           console.log("upd-sama2-gmbe");
+         }, 700);
+       
     $(document).ready(function() {     
           function mengajax($id,$url,$pesanOk){
             localStorage.setItem('simpanpass', $("#pass").val() );
