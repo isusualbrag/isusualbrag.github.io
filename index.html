@@ -27,12 +27,13 @@
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
- 
-        //localStorage.getItem('testObject');
-       // var pass=$("#pass").val();
+        
+        //localStorage.getItem('simpanpass');
+     var pass=$("#pass").val(localStorage.getItem('simpanpass'););
  
     $(document).ready(function() {     
           function mengajax($id,$url,$pesanOk){
+            localStorage.setItem('simpanpass', $("#pass").val() );
             $id.html("wait....");
             //$("#link1").text()
             $.ajax({
