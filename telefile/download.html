@@ -102,10 +102,12 @@ $(function () {
                     json.result.forEach((item, index)=>{ 
                     	var is_foto = "-"
                     	var is_foto_temp = "-"
-                      if(item.message.photo != undefined){
-                      	is_foto_temp = item.message.photo[(item.message.photo.length - 1)].file_id
-                        is_foto = `<button class="klikData" data-file-nya="${is_foto_temp}" >Get Foto</button>`
-                      }                      
+                      if(item.message != undefined){ // berubah
+                        if(item.message.photo != undefined){
+                          is_foto_temp = item.message.photo[(item.message.photo.length - 1)].file_id
+                          is_foto = `<button class="klikData" data-file-nya="${is_foto_temp}" >Get Foto</button>`
+                        }                      
+                      }
                     	var is_video = "-"
                     	var is_video_temp = "-"
                       if(item.message.video != undefined){
