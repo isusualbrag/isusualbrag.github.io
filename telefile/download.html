@@ -190,7 +190,7 @@
             if (hasilGet.ok == true) {
               /* alert(hasilGet.result.file_path) */
               // open(urlOpenFile + hasilGet.result.file_path)
-              openRename(urlOpenFile + hasilGet.result.file_path)
+              openRename(urlOpenFile + hasilGet.result.file_path, 'ini_nama.pdf')
               /* mengajaxFileBuka(linknyaaa) */
             }
           },
@@ -200,27 +200,38 @@
         });
       }
 
-      function openRename(fileUrl) {
-        // The existing URL of the file
-        // const fileUrl = 'https://example.com/path/to/your/file.pdf';
-        // The custom name you want for the downloaded file
-        const customFileName = 'custom_filename.pdf';
+      function openRename(url, filename) {
+        $.ajax({
+          url: url,
+          method: 'GET',
+          xhrFields: {
+            responseType: 'blob' // Set the response type to blob
+          },
+          success: function (data) {
+            // Create a URL for the Blob object
+            const blobUrl = URL.createObjectURL(data);
 
-        // Create an anchor element
-        const a = document.createElement('a');
-        // Set the download attribute with the custom file name
-        a.download = customFileName;
-        // Set the href attribute to the file URL
-        a.href = fileUrl;
+            // Create an 'a' element and set the href and download attributes
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = filename;
 
-        // Append the anchor to the body (it won't be visible)
-        document.body.appendChild(a);
+            // Append the link to the body
+            document.body.appendChild(link);
 
-        // Programmatically click the anchor to trigger the download
-        a.click();
+            // Programmatically click the link to trigger the download
+            link.click();
 
-        // Remove the anchor from the document
-        document.body.removeChild(a);
+            // Remove the link from the document
+            document.body.removeChild(link);
+
+            // Revoke the Blob URL to free up memory
+            URL.revokeObjectURL(blobUrl);
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Error downloading file:', textStatus, errorThrown);
+          }
+        });
       }
 
       function mengajax(urlx) {
