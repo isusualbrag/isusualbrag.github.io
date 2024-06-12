@@ -6,6 +6,7 @@
 </head>
 
 <body>
+  <!-- TESZZZ -->
 
   <!-- <form id="upForm" name="file" enctype="multipart/form-data"> -->
   <!-- <input type="file" name="file" id="document"> -->
@@ -200,9 +201,9 @@
         });
       }
 
-      function openRename(url, filename) {
+      function openRename(urlOpenFile, filename) {
         $.ajax({
-          url: url,
+          url: urlOpenFile,
           method: 'GET',
           xhrFields: {
             responseType: 'blob' // Set the response type to blob
