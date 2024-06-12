@@ -51,6 +51,9 @@
         data.append('document', $('input[id="document"]')[0].files[0]);
         console.log(data)
         console.log(data)
+        $("#uploadButton").attr('disabled', true);
+        html_tombol = $("#uploadButton").html()
+        $("#uploadButton").html('Loading..');
 
         // Ajax to post the form
         $.ajax({
@@ -68,6 +71,10 @@
           error: function (jqXHR, textStatus, errorThrown) {
             toastr.error('Error: ' + data.error)
             console.log('Error: ' + data.error);
+          },
+          complete: function (a, b) {
+            $("#uploadButton").attr('disabled', false);
+            $("#uploadButton").html(html_tombol);
           }
         });
 
