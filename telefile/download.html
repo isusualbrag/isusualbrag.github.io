@@ -198,10 +198,10 @@
           success: function (hasilGet) {
             if (hasilGet.ok == true) {
               /* alert(hasilGet.result.file_path) */
-              // open(urlOpenFile + hasilGet.result.file_path) // buka langsung new tab, tanpa nama disesuaikan
-              openRename(urlOpenFile + hasilGet.result.file_path, 'ini_nama.pdf', tombol_ini)
+              open(urlOpenFile + hasilGet.result.file_path) // buka langsung new tab, tanpa nama disesuaikan
+              // openRename(urlOpenFile + hasilGet.result.file_path, 'ini_nama.pdf', tombol_ini)
               /* mengajaxFileBuka(linknyaaa) */
-              tombol_ini.html("Download now")
+              // tombol_ini.html("Download now")
             }
           },
           error: function (jqXHR, textStatus, errorThrown) {
@@ -214,11 +214,11 @@
         });
       }
 
-      function openRename(urlHeh, filename, tombol_ini) {
-        var ini_html = "<button><a href='" + urlHeh + "' download = '" + filename + "'>Download</a></button>";
-        tombol_ini.parent().html(ini_html)
-        // modif, ganti tombol dengan tombol download dengan direct url dengan download="" pada tombol ini, dan judulnya
-      }
+      // function openRename(urlHeh, filename, tombol_ini) {
+      //   var ini_html = "<button><a href='" + urlHeh + "' download = '" + filename + "'>Download</a></button>";
+      //   tombol_ini.parent().html(ini_html)
+      //   // modif, ganti tombol dengan tombol download dengan direct url dengan download="" pada tombol ini, dan judulnya
+      // }
 
       function mengajax(urlx) {
         event.stopPropagation();
