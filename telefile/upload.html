@@ -73,6 +73,7 @@
           error: function (jqXHR, textStatus, errorThrown) {
             toastr.error('Error: ' + data.error)
             console.log('Error: ' + data.error);
+            console.log(textStatus);
           },
           complete: function (a, b) {
             $("#uploadButton").attr('disabled', false);
