@@ -71,9 +71,9 @@
             toastr.success('Berhasil, cek tele')
           },
           error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error('Error: ' + data.error)
-            console.log('Error: ' + data.error);
-            console.log(jqXHR);
+            toastr.error('Error: ' + jqXHR.responseJSON.description)
+            // console.log('Error: ' + jqXHR.responseJSON.description);
+            console.log(jqXHR.responseJSON);
           },
           complete: function (a, b) {
             $("#uploadButton").attr('disabled', false);
