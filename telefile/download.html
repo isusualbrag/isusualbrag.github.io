@@ -173,14 +173,21 @@
 
 
       $(document).on('click', '.klikData', function (e) {
+        tombol_ini = $(this)
         var file_id = $(this).data('file-nya')
-        mengajaxDatanya(getFilesUrl + file_id)
+        mengajaxDatanya(getFilesUrl + file_id, tombol_ini)
 
       })
 
-      function mengajaxDatanya(urlGet) {
+      var html_tombol;
+
+      function mengajaxDatanya(urlGet, tombol_ini) {
         event.stopPropagation();
         event.preventDefault();
+        // tombol_ini
+        html_tombol = tombol_ini.html()
+        tombol_ini.attr('disabled', true);
+        tombol_ini.html("Fetching..")
         // Ajax to post the form
         $.ajax({
           url: urlGet,
@@ -190,49 +197,24 @@
           success: function (hasilGet) {
             if (hasilGet.ok == true) {
               /* alert(hasilGet.result.file_path) */
-              // open(urlOpenFile + hasilGet.result.file_path)
-              openRename(urlOpenFile + hasilGet.result.file_path, 'ini_nama.pdf')
+              // open(urlOpenFile + hasilGet.result.file_path) // buka langsung new tab, tanpa nama disesuaikan
+              openRename(urlOpenFile + hasilGet.result.file_path, 'ini_nama.pdf', tombol_ini)
               /* mengajaxFileBuka(linknyaaa) */
+              tombol_ini.html("Download now")
             }
           },
           error: function (jqXHR, textStatus, errorThrown) {
             alert('error Get File (Mungkin file lebih dari 20mb)')
+          },
+          complete: function (a, b) {
+            tombol_ini.attr('disabled', false);
+            tombol_ini.html(html_tombol)
           }
         });
       }
 
       function openRename(urlHeh, filename) {
-        $.ajax({
-          url: urlHeh,
-          method: 'GET',
-          xhrFields: {
-            responseType: 'blob' // Set the response type to blob
-          },
-          success: function (data) {
-            // Create a URL for the Blob object
-            const blobUrl = URL.createObjectURL(data);
-
-            // Create an 'a' element and set the href and download attributes
-            const link = document.createElement('a');
-            link.href = blobUrl;
-            link.download = filename;
-
-            // Append the link to the body
-            document.body.appendChild(link);
-
-            // Programmatically click the link to trigger the download
-            link.click();
-
-            // Remove the link from the document
-            document.body.removeChild(link);
-
-            // Revoke the Blob URL to free up memory
-            URL.revokeObjectURL(blobUrl);
-          },
-          error: function (jqXHR, textStatus, errorThrown) {
-            console.error('Error downloading file:', textStatus, errorThrown);
-          }
-        });
+        // modif, ganti tombol dengan tombol download dengan direct url dengan download="" pada tombol ini, dan judulnya
       }
 
       function mengajax(urlx) {
