@@ -1,0 +1,186 @@
+<head>
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <script src="jquery.min.js"></script>
+  <script src="toaster.min.js"></script>
+
+  <link href="toastr.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- <form id="upForm" name="file" enctype="multipart/form-data"> -->
+  <!-- <input type="file" name="file" id="document"> -->
+  <!-- <button id="uploadButton">Upload</button> -->
+  <!-- </form> -->
+
+  <h1>Upload FIELS tele not work (STYLIZED</h1>
+  <form id="upForm" name="file" enctype="multipart/form-data">
+    <label for="document" id="buttonlabel">
+      <span role="button" aria-controls="filename" tabindex="0">
+        upload file
+      </span>
+    </label>
+    <input type="file" id="document">
+    <label for="filename" class="hide">
+      uploaded file
+    </label>
+    <input type="text" id="filename" autocomplete="off" readonly placeholder="no file uploaded">
+    &nbsp;
+    <button id="uploadButton">Kirim ke Tele</button>
+  </form>
+
+
+
+
+  <script>
+    var url = 'https://api.telegram.org/bot1404819162:AAHLt-HMss0BVJO3KE63hJhv_8vu8GiAZHs/sendDocument?chat_id=-1001292484982&text=tes-yuubii';
+    // On Load
+    $(function () {
+      'use strict';
+
+      var html_tombol;
+
+      toastr.info('Silahkan upload berkas..')
+
+      $('#uploadButton').on('click', function (event) {
+        var data;
+        event.stopPropagation();
+        event.preventDefault();
+
+        data = new FormData();
+        data.append('document', $('input[id="document"]')[0].files[0]);
+        console.log(data)
+        console.log(data)
+        $("#uploadButton").attr('disabled', true);
+        html_tombol = $("#uploadButton").html()
+        $("#uploadButton").html('Loading..');
+
+        // Ajax to post the form
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: data,
+          cache: false,
+          dataType: 'json',
+          processData: false,
+          contentType: false,
+          success: function (json) {
+            console.log(json);
+            toastr.success('Berhasil, cek tele')
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            toastr.error('Error: ' + data.error)
+            console.log('Error: ' + data.error);
+          },
+          complete: function (a, b) {
+            $("#uploadButton").attr('disabled', false);
+            $("#uploadButton").html(html_tombol);
+          }
+        });
+
+      });
+
+    });
+  </script>
+
+  <script>
+    // trigger upload on space & enter
+    // = standard button functionality
+    $('#buttonlabel span[role=button]').bind('keypress keyup', function (e) {
+      if (e.which === 32 || e.which === 13) {
+        e.preventDefault();
+        $('#document').click();
+      }
+    });
+
+    // return chosen filename to additional input
+    $('#document').change(function (e) {
+      var filename = $('#document').val().split('\\').pop();
+      $('#filename').val(filename);
+      $('#filename').attr('placeholder', filename);
+      $('#filename').focus();
+    });
+  </script>
+</body>
+
+<style>
+  #document {
+    display: none;
+  }
+
+  form {
+    display: table-row;
+    width: 40rem;
+    /* background-color: pink; */
+  }
+
+  span[role=button] {
+    display: table-cell;
+    font-family: Arial;
+    font-size: 1rem;
+    padding: 8px 8px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 2px solid #265986;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #265986;
+    outline: none;
+  }
+
+  #uploadButton {
+    display: table-cell;
+    font-family: Arial;
+    font-size: 1rem;
+    padding: 8px 8px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-radius: 5px;
+    border: 2px solid #265986;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: green;
+    outline: none;
+  }
+
+  span[role=button]:hover,
+  span[role=button]:focus {
+    box-shadow: 0 0 5px #595959;
+    background-color: #183a57;
+    border-color: #265986;
+    outline: 2px solid transparent;
+  }
+
+  .hide {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  input[type=text] {
+    display: table-cell;
+    margin-left: -5px;
+    width: 20rem;
+    font-family: Arial;
+    font-size: 1rem;
+    padding: 8px 8px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 2px solid #265986;
+    color: #000000;
+    background-color: #ffffff;
+  }
+
+  input[type=text]:focus {
+    box-shadow: 0 0 5px #595959;
+    border-color: #265986;
+    outline: 2px solid transparent;
+  }
+</style>
