@@ -59,21 +59,29 @@
     // On Load
     $(function () {
       'use strict';
-      refreshButton()
+
+      var html_tombol;
+      refreshButton(false, null)
 
       $('#refreshButton').on('click', function (event) {
-        refreshButton(false)
+        refreshButton(false, $(this))
       })
 
       $('#clearButton').on('click', function (event) {
-        refreshButton(true)
+        refreshButton(true, $(this))
       })
 
-      function refreshButton(is_clear) {
+      function refreshButton(is_clear, tombol_refresh) {
         // alert()
         /*  event.stopPropagation();
          event.preventDefault(); */
 
+        // tombol_ini
+        if (tombol_refresh !== null) {
+          html_tombol = tombol_refresh.html()
+          tombol_refresh.attr('disabled', true);
+          tombol_refresh.html("Fetching..")
+        }
 
         // Ajax to post the form
         $.ajax({
@@ -180,7 +188,6 @@
 
       })
 
-      var html_tombol;
 
       function mengajaxDatanya(urlGet, tombol_ini) {
         event.stopPropagation();
@@ -190,7 +197,7 @@
         tombol_ini.attr('disabled', true);
         tombol_ini.html("Fetching..")
         // Ajax to post the form
-        
+
         $.ajax({
           url: urlGet,
           type: 'POST',
