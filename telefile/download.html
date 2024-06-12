@@ -1,230 +1,254 @@
-
 <head>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<link href="upload.css" rel="stylesheet">
+  <link href="upload.css" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- <form id="upForm" name="file" enctype="multipart/form-data"> -->
-	<!-- <input type="file" name="file" id="document"> -->
-	<!-- <button id="uploadButton">Upload</button> -->
-<!-- </form> -->
+  <!-- <form id="upForm" name="file" enctype="multipart/form-data"> -->
+  <!-- <input type="file" name="file" id="document"> -->
+  <!-- <button id="uploadButton">Upload</button> -->
+  <!-- </form> -->
 
-<h1>GET UPDATE TELEGRAM</h1>
-<button id="refreshButton">Refresh Button</button>
-<button id="clearButton">Clear All</button>
-<br><br>
-<div>
-  <table border=1>
-  <thead>
-    <tr>
-      <td>
-        #
-      </td>
-      <td>
-        Keterangan
-      </td>
-      <td>
-        Photo
-      </td>
-      <td>
-        Video
-      </td>
-      <td>
-        File
-      </td>
-      <td>
-        Voice
-      </td>
-    </tr>
-    </thead>
-    <tbody id="tbody">
-      
-    </tbody>
-  </table>
-</div>
+  <h1>GET UPDATE TELEGRAM</h1>
+  <button id="refreshButton">Refresh Button</button>
+  <button id="clearButton">Clear All</button>
+  <br><br>
+  <div>
+    <table border=1>
+      <thead>
+        <tr>
+          <td>
+            #
+          </td>
+          <td>
+            Keterangan
+          </td>
+          <td>
+            Photo
+          </td>
+          <td>
+            Video
+          </td>
+          <td>
+            File
+          </td>
+          <td>
+            Voice
+          </td>
+        </tr>
+      </thead>
+      <tbody id="tbody">
 
-
+      </tbody>
+    </table>
+  </div>
 
 
-<script>
-var url='https://api.telegram.org/bot1404819162:AAHLt-HMss0BVJO3KE63hJhv_8vu8GiAZHs/getUpdates';
-var getFilesUrl = 'https://api.telegram.org/bot1404819162:AAHLt-HMss0BVJO3KE63hJhv_8vu8GiAZHs/getFile?file_id=';
-var urlOpenFile = "https://api.telegram.org/file/bot1404819162:AAHLt-HMss0BVJO3KE63hJhv_8vu8GiAZHs/"
 
-var offset_i = 9;
-// On Load
-$(function () {
-    'use strict';
-    refreshButton()
-    
-    $('#refreshButton').on('click', function (event) {
-    	refreshButton(false)
-    }) 
-    
-    $('#clearButton').on('click', function (event) {
-    	refreshButton(true)
-    })
-    
-    function refreshButton(is_clear){
-    // alert()
-       /*  event.stopPropagation();
-        event.preventDefault(); */
+
+  <script>
+    var url = 'https://api.telegram.org/bot1404819162:AAHLt-HMss0BVJO3KE63hJhv_8vu8GiAZHs/getUpdates';
+    var getFilesUrl = 'https://api.telegram.org/bot1404819162:AAHLt-HMss0BVJO3KE63hJhv_8vu8GiAZHs/getFile?file_id=';
+    var urlOpenFile = "https://api.telegram.org/file/bot1404819162:AAHLt-HMss0BVJO3KE63hJhv_8vu8GiAZHs/"
+
+    var offset_i = 9;
+    // On Load
+    $(function () {
+      'use strict';
+      refreshButton()
+
+      $('#refreshButton').on('click', function (event) {
+        refreshButton(false)
+      })
+
+      $('#clearButton').on('click', function (event) {
+        refreshButton(true)
+      })
+
+      function refreshButton(is_clear) {
+        // alert()
+        /*  event.stopPropagation();
+         event.preventDefault(); */
 
 
         // Ajax to post the form
         $.ajax({
-            url: url,
-            type: 'POST',
-            cache: false,
-            contentType: false,
-            success: function (json) {
-                console.log(json);
-                if(json.ok == true){
-                	var panjang = json.result.length
-                  if(panjang != 0){
-                  	//alert(panjang)
-                    //alert(update_id_panjang)
-                    var update_id_panjang
-                    if(panjang > offset_i){
-                    	update_id_panjang = json.result[(panjang-offset_i-1)].update_id
-                   		mengajax(url + '?offset=' + (update_id_panjang + 1))
+          url: url,
+          type: 'POST',
+          cache: false,
+          contentType: false,
+          success: function (json) {
+            console.log(json);
+            if (json.ok == true) {
+              var panjang = json.result.length
+              if (panjang != 0) {
+                //alert(panjang)
+                //alert(update_id_panjang)
+                var update_id_panjang
+                if (panjang > offset_i) {
+                  update_id_panjang = json.result[(panjang - offset_i - 1)].update_id
+                  mengajax(url + '?offset=' + (update_id_panjang + 1))
+                }
+                if (is_clear == true) {
+                  update_id_panjang = json.result[(panjang - 1)].update_id
+                  mengajax(url + '?offset=' + (update_id_panjang + 1))
+                  location.reload()
+                }
+                // alert(json.ok)
+                var htmlnya = ``;
+                json.result.forEach((item, index) => {
+                  var is_foto = "-"
+                  var is_foto_temp = "-"
+                  console.log(item) // nyam nyam hemm
+                  if (item.message == undefined) { // berubah
+                    return;
+                  }
+                  if (item.message.photo != undefined) {
+                    is_foto_temp = item.message.photo[(item.message.photo.length - 1)].file_id
+                    is_foto = `<button class="klikData" data-file-nya="${is_foto_temp}" >Get Foto</button>`
+                  }
+                  var is_video = "-"
+                  var is_video_temp = "-"
+                  if (item.message.video != undefined) {
+                    is_video_temp = item.message.video.file_id
+                    is_video = `<button class="klikData" data-file-nya="${is_video_temp}" >Get Video</button>`
+                  }
+
+                  var is_document = "-"
+                  var is_document_temp = "-"
+                  if (item.message.document != undefined) {
+                    is_document_temp = item.message.document.file_id
+                    is_document = `<button class="klikData" data-file-nya="${is_document_temp}" >Get Document</button>`
+                  }
+
+                  var is_voice = "-"
+                  var is_voice_temp = "-"
+                  if (item.message.voice != undefined) {
+                    is_voice_temp = item.message.voice.file_id
+                    is_voice = `<button class="klikData" data-file-nya="${is_voice_temp}" >Get Voice</button>`
+                  }
+
+                  var is_text = "-"
+                  if (item.message.text != undefined) {
+                    is_text = item.message.text
+                  }
+                  if (item.message.document != undefined) {
+                    if (item.message.document.file_name != undefined) {
+                      is_text = item.message.document.file_name
                     }
-                    if(is_clear == true){
-                    	update_id_panjang = json.result[(panjang-1)].update_id
-                   		mengajax(url + '?offset=' + (update_id_panjang + 1))
-                      location.reload()
-                    }
-                    // alert(json.ok)
-                    var htmlnya = ``;
-                    json.result.forEach((item, index)=>{ 
-                    	var is_foto = "-"
-                    	var is_foto_temp = "-"
-                      console.log(item) // nyam nyam hemm
-                      if(item.message == undefined){ // berubah
-                        return;       
-                      }
-                      if(item.message.photo != undefined){
-                          is_foto_temp = item.message.photo[(item.message.photo.length - 1)].file_id
-                          is_foto = `<button class="klikData" data-file-nya="${is_foto_temp}" >Get Foto</button>`
-                        } 
-                    	var is_video = "-"
-                    	var is_video_temp = "-"
-                      if(item.message.video != undefined){
-                      	is_video_temp = item.message.video.file_id
-                        is_video = `<button class="klikData" data-file-nya="${is_video_temp}" >Get Video</button>`
-                      }
-                                            
-                    	var is_document = "-"
-                    	var is_document_temp = "-"
-                      if(item.message.document != undefined){
-                      	is_document_temp = item.message.document.file_id
-                        is_document = `<button class="klikData" data-file-nya="${is_document_temp}" >Get Document</button>`
-                      }            
-                      
-                    	var is_voice = "-"
-                    	var is_voice_temp = "-"
-                      if(item.message.voice != undefined){
-                      	is_voice_temp = item.message.voice.file_id
-                        is_voice = `<button class="klikData" data-file-nya="${is_voice_temp}" >Get Voice</button>`
-                      }
-                      
-                      var is_text = "-"
-                      if(item.message.text != undefined){
-                      	is_text = item.message.text
-                      }
-                      if(item.message.document != undefined){
-                        if(item.message.document.file_name != undefined){
-                          is_text = item.message.document.file_name
-                        }
-                      }
-                      if(item.message.caption != undefined){
-                      	is_text = item.message.caption
-                      }
-                      //
-                      // 
-                      
-                      htmlnya += `<tr>
-                        <td>${index+1}</td>
+                  }
+                  if (item.message.caption != undefined) {
+                    is_text = item.message.caption
+                  }
+                  //
+                  // 
+
+                  htmlnya += `<tr>
+                        <td>${index + 1}</td>
                         <td>${is_text}</td>
                         <td>${is_foto}</td>
                         <td>${is_video}</td>
                         <td>${is_document}</td>
                         <td>${is_voice}</td>
                       </tr>`
-                    });
-                    
-                  }else{
-                  	htmlnya = "<tr><td colspan=9>Data kosong....</td></tr>"
-                  }                  
-                  $("#tbody").html(htmlnya)
-                  
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Error: ');
+                });
+
+              } else {
+                htmlnya = "<tr><td colspan=9>Data kosong....</td></tr>"
+              }
+              $("#tbody").html(htmlnya)
+
             }
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert('Error: ');
+          }
         });
-        
-    }
-    
-    
-    $(document).on('click', '.klikData', function (e) {
-    	var file_id = $(this).data('file-nya')
-      mengajaxDatanya(getFilesUrl + file_id)
-      
-    })
-    
-    function mengajaxDatanya(urlGet){
-    	event.stopPropagation();
+
+      }
+
+
+      $(document).on('click', '.klikData', function (e) {
+        var file_id = $(this).data('file-nya')
+        mengajaxDatanya(getFilesUrl + file_id)
+
+      })
+
+      function mengajaxDatanya(urlGet) {
+        event.stopPropagation();
         event.preventDefault();
         // Ajax to post the form
         $.ajax({
-            url: urlGet,
-            type: 'POST',
-            cache: false,
-            contentType: false,
-            success: function (hasilGet) {
-              if(hasilGet.ok == true ){
-                /* alert(hasilGet.result.file_path) */
-                open(urlOpenFile + hasilGet.result.file_path)
-                /* mengajaxFileBuka(linknyaaa) */
-              }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-              alert('error Get File (Mungkin file lebih dari 20mb)')
+          url: urlGet,
+          type: 'POST',
+          cache: false,
+          contentType: false,
+          success: function (hasilGet) {
+            if (hasilGet.ok == true) {
+              /* alert(hasilGet.result.file_path) */
+              // open(urlOpenFile + hasilGet.result.file_path)
+              openRename(urlOpenFile + hasilGet.result.file_path)
+              /* mengajaxFileBuka(linknyaaa) */
             }
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert('error Get File (Mungkin file lebih dari 20mb)')
+          }
         });
-    }
-    
-    function mengajax(urlx){
-    	event.stopPropagation();
+      }
+
+      function openRename(fileUrl) {
+        // The existing URL of the file
+        // const fileUrl = 'https://example.com/path/to/your/file.pdf';
+        // The custom name you want for the downloaded file
+        const customFileName = 'custom_filename.pdf';
+
+        // Create an anchor element
+        const a = document.createElement('a');
+        // Set the download attribute with the custom file name
+        a.download = customFileName;
+        // Set the href attribute to the file URL
+        a.href = fileUrl;
+
+        // Append the anchor to the body (it won't be visible)
+        document.body.appendChild(a);
+
+        // Programmatically click the anchor to trigger the download
+        a.click();
+
+        // Remove the anchor from the document
+        document.body.removeChild(a);
+      }
+
+      function mengajax(urlx) {
+        event.stopPropagation();
         event.preventDefault();
 
         // Ajax to post the form
         $.ajax({
-            url: urlx,
-            type: 'POST',
-            cache: false,
-            contentType: false,
-            success: function (jsonx) {
-               return jsonx
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-               return false;
-            }
+          url: urlx,
+          type: 'POST',
+          cache: false,
+          contentType: false,
+          success: function (jsonx) {
+            return jsonx
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            return false;
+          }
         });
-    }
-    
-});
-</script>
+      }
+
+    });
+  </script>
 
 </body>
 
 <style>
-body{
-  background:lightGrey;
-}
+  body {
+    background: lightGrey;
+  }
 </style>
