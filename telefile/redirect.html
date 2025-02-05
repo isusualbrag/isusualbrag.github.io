@@ -1,1 +1,22 @@
 <div>Redirecting...</div>
+
+<script>
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramValue = urlParams.get('waw'); // Replace 'paramName' with the actual parameter name
+
+    console.log(paramValue);
+
+    setTimeout(() => {
+        if (paramValue == "download") {
+            location.href = "https://isusualbrag.github.io/telefile/download.html"
+        } else if (paramValue == "upload") {
+            location.href = "https://isusualbrag.github.io/telefile/upload.html"
+        }else{
+            alert("Gagal..")
+        }
+
+    }, 500);
+
+
+</script>
