@@ -18,8 +18,8 @@
   <div class="content">
     <div class="container-fluid">
       <h1>GET UPDATE TELEGRAM</h1>
-      <button id="refreshButton">Refresh Button</button>
-      <button id="clearButton">Clear All</button>
+      <button class="btn btn-primary" id="refreshButton">Refresh Button</button>
+      <button class="btn btn-warning" id="clearButton">Clear All</button>
       <br><br>
       <div>
         <div class="row">
@@ -130,27 +130,27 @@
                   }
                   if (item.message.photo != undefined) {
                     is_foto_temp = item.message.photo[(item.message.photo.length - 1)].file_id
-                    is_foto = `<button class="klikData" data-file-nya="${is_foto_temp}" >Get Foto</button>`
+                    is_foto = `<button class="klikData btn btn-success" data-file-nya="${is_foto_temp}" >Get Foto</button>`
                   }
                   var is_video = "-"
                   var is_video_temp = "-"
                   if (item.message.video != undefined) {
                     is_video_temp = item.message.video.file_id
-                    is_video = `<button class="klikData" data-file-nya="${is_video_temp}" >Get Video</button>`
+                    is_video = `<button class="klikData btn btn-success" data-file-nya="${is_video_temp}" >Get Video</button>`
                   }
 
                   var is_document = "-"
                   var is_document_temp = "-"
                   if (item.message.document != undefined) {
                     is_document_temp = item.message.document.file_id
-                    is_document = `<button class="klikData" data-file-nya="${is_document_temp}" >Get Document</button>`
+                    is_document = `<button class="klikData btn btn-success" data-file-nya="${is_document_temp}" >Get Document</button>`
                   }
 
                   var is_voice = "-"
                   var is_voice_temp = "-"
                   if (item.message.voice != undefined) {
                     is_voice_temp = item.message.voice.file_id
-                    is_voice = `<button class="klikData" data-file-nya="${is_voice_temp}" >Get Voice</button>`
+                    is_voice = `<button class="klikData btn btn-success" data-file-nya="${is_voice_temp}" >Get Voice</button>`
                   }
 
                   var is_text = "-"
