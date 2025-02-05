@@ -8,13 +8,19 @@
     console.log(paramValue);
 
     setTimeout((e) => {
-        if (paramValue == "download") {
-            location.href = "https://isusualbrag.github.io/telefile/download.html"
-        } else if (paramValue == "upload") {
-            location.href = "https://isusualbrag.github.io/telefile/upload.html"
+        // if (paramValue == "download") {
+        //     location.href = "https://isusualbrag.github.io/telefile/download.html"
+        // } else if (paramValue == "upload") {
+        //     location.href = "https://isusualbrag.github.io/telefile/upload.html"
+        // }else{
+        //     // alert("Gagal..")
+        //     document.querySelector("div").innerHTML  = "<h2>Gagal...</h2>";
+        // }
+
+        if(paramValue){
+            location.href = "https://isusualbrag.github.io/telefile/" + paramValue + ".html"
         }else{
-            // alert("Gagal..")
-            document.querySelector("div").innerHTML  = "<h2>Gagal...</h2>";
+            document.querySelector("div").innerHTML  = "<h2>Gagalz...</h2>";
         }
 
     }, 1500);
