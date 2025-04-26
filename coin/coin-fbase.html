@@ -31,7 +31,8 @@
       </div>
     </div>
 
-    <h2 style="text-align:center;">»Live Data (<a href="#" onclick="window.location.href=window.location.pathname">Reset</a>)</h2>
+    <h2 style="text-align:center;">-Live Data (<a href="#"
+        onclick="window.location.href=window.location.pathname">Reset</a>)</h2>
     <div class="row">
       <div class="col-md-2">
       </div>
@@ -124,18 +125,22 @@
       const data = snapshot.val();
       const tbody = document.querySelector("#dataTable tbody");
       tbody.innerHTML = "";
-      
-      var itung = 0;
 
+      var itung = 0;
+      var gjl_gnp
       for (const key in data) {
         const value = data[key];
         let isFirstRow = true;
-
+        
         if (typeof value === 'object') {
           for (const childKey in value) {
             const tr = document.createElement("tr");
             tr.style.cursor = "pointer";
-            tr.classList.add(itung);
+            gjl_gnp = "genap";
+            if(isOdd(n)){
+              gjl_gnp = "ganjil";
+            }
+            tr.classList.add(gjl_gnp);
             tr.onclick = () => {
               document.getElementById("itemKey").value = `${key}/${childKey}`;
               document.getElementById("itemValue").value = value[childKey];
@@ -180,6 +185,10 @@
       if (!key) return alert("Please enter a key to delete");
       remove(ref(db, 'coin/' + key));
     };
+
+    function isOdd(n) {
+      return Math.abs(n % 2) == 1;
+    }
   </script>
 </body>
 
