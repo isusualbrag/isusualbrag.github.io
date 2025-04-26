@@ -124,6 +124,8 @@
       const data = snapshot.val();
       const tbody = document.querySelector("#dataTable tbody");
       tbody.innerHTML = "";
+      
+      var itung = 0;
 
       for (const key in data) {
         const value = data[key];
@@ -133,6 +135,7 @@
           for (const childKey in value) {
             const tr = document.createElement("tr");
             tr.style.cursor = "pointer";
+            tr.style.itung = itung;
             tr.onclick = () => {
               document.getElementById("itemKey").value = `${key}/${childKey}`;
               document.getElementById("itemValue").value = value[childKey];
@@ -161,6 +164,7 @@
           `;
           tbody.appendChild(tr);
         }
+        itung++;
       }
     });
 
