@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <h2 style="text-align:center;">>>Live Data (<a href="#" onclick="window.location.href=window.location.pathname">Reset</a>)</h2>
+    <h2 style="text-align:center;">>>>Live Data (<a href="#" onclick="window.location.href=window.location.pathname">Reset</a>)</h2>
     <div class="row">
       <div class="col-md-2">
       </div>
@@ -135,7 +135,7 @@
           for (const childKey in value) {
             const tr = document.createElement("tr");
             tr.style.cursor = "pointer";
-            tr.style.itung = itung;
+            tr.class = itung;
             tr.onclick = () => {
               document.getElementById("itemKey").value = `${key}/${childKey}`;
               document.getElementById("itemValue").value = value[childKey];
