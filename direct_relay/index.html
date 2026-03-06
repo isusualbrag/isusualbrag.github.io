@@ -387,23 +387,11 @@
         // ============================================================
         // >>>  CONFIGURE THESE VALUES FOR YOUR DEPLOYMENT  <<<
         // ============================================================
-
-        // Split your bot token: PART1 + <decoded secret key> + PART2
-        // Example full token: 1013670964:AAG1234ZnLb9ozHpNRfGS94CBQ-jwMQGEWg
-        //   PART1 = "1013670964:AAG1234ZnLb9ozHpNR"
-        //   key   = "fGS9"   (entered as "Test" by user, decoded by reverseShiftString)
-        //   PART2 = "4CBQ-jwMQGEWg"
         
         const TOKEN_PART1 = "918222277:AAHYp9YZDwvcyogF2HS7"; // <<< PUT YOUR PART1 HERE
         const TOKEN_PART2 = "J56f1cNL4_w";                 // <<< PUT YOUR PART2 HERE
         const HARDCODED_CHAT_ID = "-1003840442879";           // <<< PUT YOUR GROUP CHAT ID HERE
 
-        // ============================================================
-        // SECRET KEY DECODER
-        // reverseShifts are the OPPOSITE of your original shifts array.
-        // Example: original shifts = [-18, 30, 32, 59]
-        //          reverse  shifts = [ 18,-30,-32,-59]
-        // reverseShiftString("Test") === "fGS9"  (with the shifts below)
         // ============================================================
         const REVERSE_SHIFTS = [19, 59, 22, 13]; // <<< ADJUST TO MATCH YOUR CIPHER
 
